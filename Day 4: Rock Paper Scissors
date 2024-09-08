@@ -1,0 +1,54 @@
+import random
+
+rock = '''
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+'''
+
+paper = '''
+    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)
+'''
+
+scissors = '''
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+'''
+
+rock_paper_scissor_list = [rock, paper, scissors]
+random_hand_select_Computer = random.choice(rock_paper_scissor_list)
+random_hand_select_Human = int(input("Which hand you want to choose? : Input 0 for rock, 1 for paper or 2 scissors\n"))
+
+human_hand = rock_paper_scissor_list[random_hand_select_Human]
+print(f"You Chose: \n{human_hand}")
+human_index = rock_paper_scissor_list.index(human_hand)
+
+computer_hand = random_hand_select_Computer
+print(f"Computer Chose: \n{computer_hand}")
+computer_index = rock_paper_scissor_list.index(computer_hand)
+
+# print(human_index)
+# print(computer_index)
+
+if (human_index > computer_index) or (human_index == 0 and computer_index == 2):
+    if human_index == 2 and computer_index == 0:
+        print("You Lose!")
+    else:
+        print("You Win!")
+elif human_index == computer_index:
+    print("Its a draw. Play again")
+else:
+    print("You Lose!")
+
