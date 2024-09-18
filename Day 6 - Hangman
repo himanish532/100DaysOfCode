@@ -1,0 +1,61 @@
+import random
+import hangman_words
+import hangman_art
+
+# import the word list to use the 'word_list' from hangman_words.py
+word_list = hangman_words.word_list
+lives = 6
+
+# import the logo from hangman_art.py and print it at the start of the game.
+print(hangman_art.logo)
+
+chosen_word = random.choice(word_list)
+print(chosen_word)
+
+placeholder = ""
+word_length = len(chosen_word)
+for position in range(word_length):
+    placeholder += "_"
+print("Word to guess: " + placeholder)
+
+game_over = False
+correct_letters = []
+
+while not game_over:
+
+    print(f"****************************{lives} LIVES LEFT****************************")
+    guess = input("Guess a letter: ").lower()
+
+    display = ""
+
+    if guess in chosen_word:
+        print("You have already guessed this letter.")
+
+    for letter in chosen_word:
+        if letter == guess:
+            display += letter
+            correct_letters.append(guess)
+        elif letter in correct_letters:
+            display += letter
+        else:
+            display += "_"
+
+    print("Word to guess: " + display)
+
+    if guess not in chosen_word:
+        print("You guessed d, that's not in the word. You lose a life.")
+        lives -= 1
+
+        if lives == 0:
+            game_over = True
+
+            # TODO 7: - Update the print statement below to give the user the correct word they were trying to guess.
+            print(f"YOU LOSE, the correct word is {chosen_word}")
+
+    if "_" not in display:
+        game_over = True
+        print("YOU WIN, the correct word is {chosen_word}")
+
+    # import the stages List from the file hangman_art.py
+    stages = hangman_art.stages
+    print(stages[lives])
