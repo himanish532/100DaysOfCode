@@ -1,0 +1,71 @@
+import art
+
+print(art.logo)
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+
+def encrypt(original_text, shift_amount):
+    i = 0
+    new_text = ""
+    for letter in original_text:
+        if letter in alphabet:
+            index_of_letter = alphabet.index(letter) - 1
+            i = index_of_letter + shift_amount
+            print(f"i = {i}")
+            if i >= 25:
+                letter = alphabet[i - 25]
+            else:
+                letter = alphabet[i+1]
+        else:
+            letter = letter
+        new_text += letter
+    print(f"Your Encoded text is {new_text}")
+
+
+def decrypt(original_text, shift_amount):
+    i = 0
+    new_text = ""
+    for letter in original_text:
+        if letter in alphabet:
+            index_of_letter = alphabet.index(letter)
+            i = index_of_letter - shift_amount
+            print(f"i = {i}")
+            if i <= 0:
+                letter = alphabet[i + 26]
+            else:
+                letter = alphabet[i]
+        else:
+            letter = letter
+        new_text += letter
+
+    print(f"Your Decoded text is {new_text}")
+
+
+def caesar():
+    if direction == "encode":
+        encrypt(original_text=text, shift_amount=shift)
+    elif direction == "decode":
+        decrypt(original_text=text, shift_amount=shift)
+
+should_continue = True
+
+while should_continue:
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
+    text = input("Type your message:\n").lower()
+    shift = int(input("Type the shift number:\n"))
+
+    caesar()
+
+    restart = input("Do you want to cipher again? yes or no \n").lower()
+    if restart == "no":
+        should_continue = False
+    else:
+        print("Thank you for using the service!")
+
+
+
+
+
+
+
+
