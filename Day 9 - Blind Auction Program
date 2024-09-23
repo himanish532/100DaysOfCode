@@ -1,0 +1,33 @@
+import art
+
+print(art.logo)
+name = input("Enter the bidder name: ")
+price = int(input("Enter the bidding value: "))
+
+Auction = {
+    name: price
+}
+
+new_bid = input("Do we have a new bid? yes or no: ").lower()
+
+while new_bid == "yes":
+    print("\n" * 100)
+    name = input("Enter the bidder name: ")
+    price = int(input("Enter the bidding value: "))
+
+    Auction = {
+        name: price
+    }
+
+    new_bid = input("Do we have a new bid? yes or no: ").lower()
+
+if new_bid == "no":
+    print("\n" * 100)
+    bid = []
+    for name in Auction:
+        bid.append(Auction[name])
+
+    bid.sort()
+    highest_bid = bid[0]
+    highest_bidder = list(Auction.keys())[list(Auction.values()).index(highest_bid)]
+    print(f"The highest bid is: {highest_bid} by {highest_bidder}")
