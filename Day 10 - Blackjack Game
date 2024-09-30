@@ -1,0 +1,90 @@
+import random
+import art
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+player_cards = [random.choice(cards), random.choice(cards)]
+dealer_card = [random.choice(cards)]
+
+
+def check_ace_card(cardList):
+    """Check if the cards list has 11 and convert it to 11 or 1 based on the total sum"""
+    if 11 in cardList and sum(cardList) > 21:
+        cardList.remove(11)
+        cardList.append(1)
+
+
+def blackjack():
+    player_total = 0
+    dealer_total = 0
+    continue_draw = True
+    play_blackjack = input("Do you want to play the game of BlackJack? y or n: ").lower()
+    print(art.logo)
+
+    while continue_draw:
+        if play_blackjack == 'y':
+            print(f"Players cards are : {player_cards}")
+            print(f"dealer first card is: {dealer_card}")
+
+            will_continue = input("Do you want to continue to draw a card? y or n: ").lower()
+
+            if will_continue == 'n':
+                player_total = sum(player_cards)
+
+                for card in dealer_card:
+                    dealer_total += card
+                    check_ace_card(dealer_card)
+                    if player_total <= 21:
+                        if dealer_total <= 16:
+                            dealer_card.append(random.choice(cards))
+                        else:
+                            print(f"{dealer_total} is more than 16, so dealer Cards are: {dealer_card}")
+
+                print(f"Player Final Cards are : {player_cards}")
+                print(f"Player Total Score is : {player_total}")
+                print(f"dealer Final Cards are: {dealer_card}")
+                print(f"dealer Total Score is : {dealer_total}")
+
+                continue_draw = False
+
+            else:
+                player_cards.append(random.choice(cards))
+                check_ace_card(player_cards)
+
+        else:
+            print("Thank you. Hope we will se you playing the game soon !")
+            player_total = 0
+            dealer_total = 0
+            continue_draw = False
+
+    totals = {
+        "player_total": player_total,
+        "dealer_total": dealer_total
+    }
+
+    print(totals)
+    return totals
+
+
+def who_won():
+    final_dict = blackjack()
+    player_total = final_dict["player_total"]
+    dealer_total = final_dict["dealer_total"]
+    if player_total > 21:
+        print(f"Player lost the game as the total is above 21: {player_total}")
+    elif player_total < 21 and dealer_total < 21:
+        if dealer_total < player_total:
+            print(f"Player won the game by {player_total} to {dealer_total}")
+        elif dealer_total > player_total:
+            print(f"Player lost the game by {player_total} to {dealer_total}")
+    elif player_total == 21:
+        print(f"player won the game as blackjack {player_total}")
+    elif dealer_total == 21 and player_total < 21:
+        print(f"dealer has BlackJack {dealer_total}! Player lost the game")
+    elif player_total < 21 and dealer_total > 21:
+        print(f"dealer lost the game as the total is above 21: {dealer_total}")
+    else:
+        print("Thank you. Hope we will se you playing the game soon !")
+
+
+who_won()
