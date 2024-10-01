@@ -1,0 +1,46 @@
+import random
+import art
+
+print(art.logo)
+print("Welcome to the Number Guessing Game !")
+print("I'm thinking of a number between 1 to 100 ...")
+difficulty_level = input("Please choose the difficulty of the chance to Guess. Easy or Hard: \n").lower()
+
+Guessed_Number = random.choice(range(1, 101))
+
+
+def num_of_chances(difficulty_lvl):
+    """Function to get the number of chances to Guess based on the difficulty level"""
+    total_num_of_chances = 0
+
+    if difficulty_lvl == "easy":
+        total_num_of_chances = 10
+    elif difficulty_lvl == "hard":
+        total_num_of_chances = 5
+
+    return total_num_of_chances
+
+
+def guess_the_number():
+    """Function to check if the guess was right"""
+    i = num_of_chances(difficulty_lvl=difficulty_level)
+
+    while i > 0:
+        print(f"You have {i} chances to guess")
+        guess = int(input("Make a guess: "))
+        if guess < Guessed_Number:
+            print("Too low.")
+            print("Guess again.")
+        elif guess > Guessed_Number:
+            print("Too High.")
+            print("Guess again.")
+        elif guess == Guessed_Number:
+            print(f"You guessed in right. The number is : {Guessed_Number}")
+            i = 0
+        i -= 1
+
+    if i == 0:
+        print(f"You ran out of guesses. You could not guess the number {Guessed_Number}")
+
+
+guess_the_number()
