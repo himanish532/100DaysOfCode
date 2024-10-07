@@ -1,3 +1,5 @@
+# Update the file name to game_data.py before importing
+
 data = [
     {
         'name': 'Instagram',
