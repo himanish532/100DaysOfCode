@@ -1,0 +1,54 @@
+import random
+import art
+import game_data
+
+print(art.logo)
+print("\n")
+
+game_dict = game_data.data
+num_of_celebs = len(game_dict)
+
+
+def who_won(a_follower_cnt, b_follower_cnt, user_ipt):
+    """Compare and check which choice won"""
+    if a_follower_cnt > b_follower_cnt:
+        if user_ipt == "a":
+            return True
+    elif b_follower_cnt > a_follower_cnt:
+        if user_ipt == "b":
+            return True
+    else:
+        return False
+
+
+score = 0
+continue_playing = True
+choiceB = random.choice(range(0, num_of_celebs - 1))
+
+while continue_playing:
+    choiceA = choiceB
+    choiceB = random.choice(range(0, num_of_celebs - 1))
+
+    print(f"Compare A : {game_dict[choiceA]['name']}, {game_dict[choiceA]['description']}, "
+          f"from {game_dict[choiceA]['country']}")
+    print(art.vs)
+    print(f"Against B : {game_dict[choiceB]['name']}, {game_dict[choiceB]['description']}, "
+          f"from {game_dict[choiceB]['country']}")
+
+    usr_ipt = input("Who has more followers? Type 'A' or 'B': ").lower()
+
+    print("\n"*20)
+    print(art.logo)
+
+    A_follower_count = game_dict[choiceA]['follower_count']
+    B_follower_count = game_dict[choiceB]['follower_count']
+
+    print(f"{A_follower_count} vs {B_follower_count}")
+
+    winner_bool = who_won(A_follower_count, B_follower_count, usr_ipt)
+    if winner_bool:
+        score += 1
+        print(f"You're right! Current score: {score}.")
+    else:
+        print(f"Sorry, that's wrong. Final score: {score}")
+        continue_playing = False
